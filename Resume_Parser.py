@@ -17,8 +17,8 @@ def main():
      from gem_resume_parser.py file 
     '''
     filename = argument_parser()
-    filejson = gem_parser.main(filename)
-    json_object = json.dumps(filejson, indent = 4)
-    print(json_object)   
+    filename_dict = gem_parser.main(filename)
+    filename_json = json.dumps(filename_dict, indent = 4)
+    print(filename_json)   
 
 main()
