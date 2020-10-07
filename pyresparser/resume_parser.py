@@ -33,13 +33,10 @@ class ResumeParser(object):
             'mobile_number': None,
             'url' : None,
             'skills': None,
-            'college_name': None,
+            'Institute_name': None,
             'education_and_training': None,
-            'designation': None,
-            'company_names': None,
             'total_experience': None,
             'Current Location':None,
-            'experiene':None
         }
         self.__resume = resume
         self.__file = self.__resume
@@ -80,13 +77,8 @@ class ResumeParser(object):
         except (IndexError, KeyError):
             self.__details['name'] = name
 
-        gender = utils.extract_gender_title(self.__details['name'])
-        
-        self.__details['Gender'] = gender[0]
 
-        self.__details['Title'] = gender[1]
-
-        experiences = utils.extracts_experience(self.__text)
+        total_experience = utils.extracts_experience(self.__text)
 
         education_and_training = utils.extract_degree(self.__nlp,self.__noun_chunks)
         
@@ -99,9 +91,11 @@ class ResumeParser(object):
                     self.__noun_chunks
                 )
 
+        self.__details['Current Location'] = Location
+
+
         entities = utils.extract_entity_sections_grad(self.__text_raw)
 
-        self.__details['experience'] = entities['experience']
 
         # resume_link = utils.resume_link(self.__file,self.__argument)
 
@@ -123,11 +117,11 @@ class ResumeParser(object):
         self.__details['skills'] = skills
 
         # extract college name
-        try:
-            self.__details['college_name'] = entities['College Name']
-        except KeyError:
-            self.__details['college_name'] = college
-
+        
+        try: 
+            self.__details['Institute_name'] = cust_ent['College Name']
+        except:
+            self.__details['Institute_name'] = college
 
         # extract education_and_training
         try:
@@ -136,22 +130,10 @@ class ResumeParser(object):
             self.__details['education_and_training'] = education_and_training
 
 
-        # extract designation
-        try:
-            self.__details['designation'] = cust_ent['Designation']
-        except KeyError:
-            pass
-
-        # extract company names
-        try:
-            self.__details['company_names'] = cust_ent['Companies worked at']
-        except KeyError:
-            pass
-
         try:
             self.__details['total_experience'] = cust_ent['Years of Experience']                  
         except (IndexError, KeyError):
-            self.__details['total_experience'] = experiences
+            self.__details['total_experience'] = total_experience
 
         return
 

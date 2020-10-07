@@ -215,42 +215,6 @@ def extract_entity_sections_grad(text):
     #         entities[entity] = None
     return entities
 
-def gender_features(word): 
-    return {'last_letter':word[-1]}
-
-def extract_gender_title(name):
-    name = name.split(' ')
-    first_name = name[0]
-
-    labeled_names = ([(name, 'male') for name in names.words('male.txt')]+
-             [(name, 'female') for name in names.words('female.txt')]) 
-  
-    random.shuffle(labeled_names) 
-    
-    # we use the feature extractor to process the names data. 
-    featuresets = [(gender_features(n), gender)  
-                for (n, gender)in labeled_names] 
-    
-    # Divide the resulting list of feature 
-    # sets into a training set and a test set. 
-    train_set, test_set = featuresets[2500:], featuresets[:500] 
-    
-    # The training set is used to  
-    # train a new "naive Bayes" classifier. 
-    classifier = nltk.NaiveBayesClassifier.train(train_set) 
-    
-    gender = classifier.classify(gender_features(first_name))
-  
-    title = ""
-
-    if gender == 'male':
-        title = 'Mr'
-    else:
-        title = "Miss"
-
-    gender = [gender,title]
-    
-    return gender
 
 
 def extract_entities_wih_custom_model(custom_nlp_text):
