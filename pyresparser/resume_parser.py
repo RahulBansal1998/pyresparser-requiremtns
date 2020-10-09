@@ -26,8 +26,6 @@ class ResumeParser(object):
         self.__custom_regex = custom_regex
         self.__matcher = Matcher(nlp.vocab)
         self.__details = {
-            'Title':None,
-            'Gender':None,
             'name': None,
             'email': None,
             'mobile_number': None,
@@ -35,7 +33,7 @@ class ResumeParser(object):
             'skills': None,
             'Institute_name': None,
             'education_and_training': None,
-            'total_experience': None,
+            # 'total_experience': None,
             'Current Location':None,
         }
         self.__resume = resume
@@ -78,7 +76,7 @@ class ResumeParser(object):
             self.__details['name'] = name
 
 
-        total_experience = utils.extracts_experience(self.__text)
+        # total_experience = utils.extracts_experience(self.__text)
 
         education_and_training = utils.extract_degree(self.__nlp,self.__noun_chunks)
         
@@ -130,10 +128,10 @@ class ResumeParser(object):
             self.__details['education_and_training'] = education_and_training
 
 
-        try:
-            self.__details['total_experience'] = cust_ent['Years of Experience']                  
-        except (IndexError, KeyError):
-            self.__details['total_experience'] = total_experience
+        # try:
+        #     self.__details['total_experience'] = cust_ent['Years of Experience']                  
+        # except (IndexError, KeyError):
+        #     self.__details['total_experience'] = total_experience
 
         return
 

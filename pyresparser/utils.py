@@ -1,7 +1,6 @@
 import io
 import os
 import re
-import nltk
 import pandas as pd
 import subprocess
 import docx2txt
@@ -14,33 +13,7 @@ from pdfminer.pdfinterp import PDFResourceManager
 from pdfminer.layout import LAParams
 from pdfminer.pdfpage import PDFPage
 from pdfminer.pdfparser import PDFSyntaxError
-from nltk.stem import WordNetLemmatizer
-from nltk.corpus import stopwords
-from collections import Counter
 import csv
-import sys
-sys.path.append('../drive_cli')
-sys.path.append('..')
-from drive_cli import actions
-from nltk.corpus import names 
-import nltk 
-import random
-
-# def resume_link(filename,arguments_data):
-#     ''' 
-#     function for getting resume_link 
-#     '''
-#     filename = filename.split('/')[-1]
-#     filename1 = filename.split('.')[0] + ".doc"
-#     filename2 = filename.split('.')[0] + ".docx"
-#     default_string = "https://drive.google.com/file/d/"
-#     doc_list = os.listdir(arguments_data["Directory"])
-#     actions.lists_out(arguments_data)
-#     df = pd.read_csv(arguments_data["drive_tablepyresparser"])
-#     id = df.loc[(df['Name'] == filename) | (df['Name'] == filename1) | (df['Name'] == filename2) ,'File ID'].values[0]
-#     file_link = default_string + id
-#     return file_link
-
 
 
 
